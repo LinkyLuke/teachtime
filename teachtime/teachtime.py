@@ -32,6 +32,11 @@ def register():
 		return redirect(url_for('home'))
 	return render_template('register.html', title='Register', form=form)
 
+
+@app.route("/timetable")
+def timetable():
+	return render_template('timetable.html', title="My Timetable")
+
 if __name__ == '__main__':
 	app.run(debug=True)
 
