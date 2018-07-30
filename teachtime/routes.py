@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, url_for, flash, redirect
-
+from teachtime import app, db
 from teachtime.forms import RegistrationForm, LoginForm
 
 routes = Blueprint('routes', __name__, template_folder='templates')
