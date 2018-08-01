@@ -10,6 +10,8 @@ sphinx = "*"
 flask-sqlalchemy = "*"
 flask-bcrypt = "*"
 flask-login = "*"
+pillow = "*"
+bcrypt = "*"
 
 [dev-packages]
 pylint = "*"
