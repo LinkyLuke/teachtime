@@ -2,12 +2,14 @@ from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 from teachtime.config import Config
 
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 db = SQLAlchemy()
+migrate = Migrate(db=db)
 
 def create_app(config=Config):
 	# Flask
@@ -19,6 +21,9 @@ def create_app(config=Config):
 	db.init_app(app)
 	with app.app_context():
 		db.create_all()
+
+	# Flask-Migrate
+	migrate.init_app(app, db)
 
 	# Flask-Bcrypt
 	bcrypt.init_app(app)
