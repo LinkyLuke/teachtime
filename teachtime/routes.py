@@ -1,5 +1,6 @@
 import secrets
 import os
+import datetime
 
 from PIL import Image
 
@@ -7,7 +8,9 @@ from flask import Blueprint, request, url_for, flash, redirect, render_template
 from flask_login import current_user, login_required, login_user, logout_user
 
 from .teachtime import bcrypt, db
-from .forms import RegistrationForm, LoginForm
+from .timetable.format import TimetableFormatter
+from .util import DateConverter
+from .forms import RegistrationForm, LoginForm, UpdateAccountForm
 from .models import User, Timetable
 
 routes = Blueprint('routes', __name__, template_folder='templates')
@@ -95,10 +98,20 @@ def account():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
+
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 
+@routes.route('/timetable', defaults={'view': 'day', 'date': datetime.datetime.today()})
+@routes.route('/timetable/<view:view>/<date:date>')
+def timetable(view, date):
+	timetable = TimetableFormatter(view, date)
 
-@routes.route("/timetable")
-def timetable():
-	return render_template('timetable.html', title="My Timetable")
+	template = {
+		'day': '_day.html',
+		'month': '_month.html',
+		'year': '_year.html'
+	}.get(view)
+
+	return render_template(template, title='Timetable', timetable=timetable)

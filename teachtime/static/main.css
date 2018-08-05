@@ -1,80 +1,44 @@
-body {
-  background: #fafafa;
-  color: #333333;
-  margin-top: 5rem;
+table.month-timetable {
+  table-layout: fixed;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  color: #444444;
+table.month-timetable tbody > tr {
+  height: 120px;
 }
 
-.bg-steel {
-  background-color: #5f788a;
+table.month-timetable td {
+  padding-top: 0;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 0.8rem;
 }
 
-.site-header .navbar-nav .nav-link {
-  color: #cbd5db;
+table.month-timetable td.no-day {
+  background: #c3c3c3;
 }
 
-.site-header .navbar-nav .nav-link:hover {
-  color: #ffffff;
+table.month-timetable div.day-number {
+  background: #c9c9c9;
+  padding-left: 0.3rem;
+  margin-bottom: 0.2rem;
 }
 
-.site-header .navbar-nav .nav-link.active {
-  font-weight: 500;
+table.month-timetable ul.event-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
-.content-section {
-  background: #ffffff;
-  padding: 10px 20px;
-  border: 1px solid #dddddd;
-  border-radius: 3px;
-  margin-bottom: 20px;
+table.month-timetable ul.event-list li {
+  background: #33acff;
+  padding-left: 0.3rem;
 }
 
-.article-title {
-  color: #444444;
+table.day-timetable {
+  table-layout: auto;
 }
 
-a.article-title:hover {
-  color: #428bca;
-  text-decoration: none;
-}
-
-.article-content {
-  white-space: pre-line;
-}
-
-.article-img {
-  height: 65px;
-  width: 65px;
-  margin-right: 16px;
-}
-
-.article-metadata {
-  padding-bottom: 1px;
-  margin-bottom: 4px;
-  border-bottom: 1px solid #e3e3e3
-}
-
-.article-metadata a:hover {
-  color: #333;
-  text-decoration: none;
-}
-
-.article-svg {
-  width: 25px;
-  height: 25px;
-  vertical-align: middle;
-}
-
-.account-img {
-  height: 125px;
-  width: 125px;
-  margin-right: 20px;
-  margin-bottom: 16px;
-}
-
-.account-heading {
-  font-size: 2.5rem;
+table.day-timetable tbody tr td {
+  width: 100%;
+  border: 0;
 }

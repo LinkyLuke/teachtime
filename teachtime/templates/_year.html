@@ -1,0 +1,42 @@
+{% extends "timetable.html" %}
+{% block view %}
+
+{% set ns = namespace(count=1) %}
+{% for row in timetable.months %}
+<div class="row">
+    {% for month in row %}
+    <div class="col">
+        <h2>{{ timetable.month_name(ns.count) }}</h2>
+        <table class="year-timetable table table-bordered">
+            <thead>
+                <tr>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Saturday</th>
+                    <th>Sunday</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for week in month %}
+                <tr>
+                {% for day, weekday in week %}
+                    {% if day == 0 %}
+                    <td class="no-day">&nbsp;</td>
+                    {% else %}
+                    <td>{{ day }}</td>
+                    {% endif %}
+                {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% set ns.count = ns.count + 1 %}
+    {% endfor %}
+</div>
+{% endfor %}
+
+{% endblock %}

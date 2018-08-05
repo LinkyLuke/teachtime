@@ -1,0 +1,27 @@
+{% extends "timetable.html" %}
+{% block view %}
+
+<table class="month-timetable table table-bordered">
+    <thead>
+        <tr>
+            {% for day in timetable.weekdays %}
+            <th scope="col">{{ day.name }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for week in timetable.weeks %}
+        <tr>
+        {% for day, weekday in week %}
+            {% if day == 0 %}
+            <td class="no-day">&nbsp;</td>
+            {% else %}
+            <td>{{ day }}</td>
+            {% endif %}
+        {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

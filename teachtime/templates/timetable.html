@@ -1,101 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
 
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Time</th>
-            <th scope="col">23/07</th>
-            <th scope="col">24/07</th>
-            <th scope="col">25/07</th>
-            <th scope="col">26/07</th>
-            <th scope="col">27/07</th>
-            <th scope="col">28/07</th>
-            <th scope="col">29/07</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th scope="row">09:00</th>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-        </tr>
-        <tr>
-            <th scope="row">10:00</th>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-        </tr>
-        <tr>
-            <th scope="row">11:00</th>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-        </tr>
-        <tr>
-            <th scope="row">12:00</th>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-        </tr>
-        <tr>
-            <th scope="row">13:00</th>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-        </tr>
-        <tr>
-            <th scope="row">14:00</th>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-        </tr>
-        <tr>
-            <th scope="row">15:00</th>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-        </tr>
-        <tr>
-            <th scope="row">16:00</th>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-            <td>...</td>
-        </tr>
-    </tbody>
-</table>
+<div class="d-flex py-2">
+    <h3 class="flex-grow-1">{{ timetable.title }}</h3>
+    <ul class="nav">
+        <div class="dropdown show">
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownView" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    View
+                </a>
+
+                <div class="dropdown-menu" area-labelledby="dropdownView">
+                    <a class="dropdown-item" href="{{ url_for('routes.timetable', view='day', date=timetable.date) }}">Daily</a>
+                    <a class="dropdown-item" href="{{ url_for('routes.timetable', view='month', date=timetable.date) }}">Monthly</a>
+                    <a class="dropdown-item" href="{{ url_for('routes.timetable', view='year', date=timetable.date) }}">Yearly</a>
+                </div>
+            </li>
+        </div>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('routes.timetable', view=timetable.view, date=timetable.previous_date) }}">
+                <i class="mr-2 fas fa-arrow-left"></i>Previous
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('routes.timetable', view=timetable.view, date=timetable.next_date) }}">
+                Next<i class="ml-2 fas fa-arrow-right"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+{% block view %}{% endblock %}
 
 {% endblock content%}

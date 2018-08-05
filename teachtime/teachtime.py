@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 from teachtime.config import Config
+from teachtime.util import ViewConverter, DateConverter
 
 bcrypt = Bcrypt()
 login_manager = LoginManager()
@@ -32,6 +33,10 @@ def create_app(config=Config):
 	login_manager.init_app(app)
 	login_manager.login_view = Config.LOGIN_VIEW
 	login_manager.login_message_category = Config.LOGIN_MESSAGE_CATEGORY
+
+	# Custom converters
+	app.url_map.converters['view'] = ViewConverter
+	app.url_map.converters['date'] = DateConverter
 
 	# TeachTime blueprints
 	from .routes import routes
