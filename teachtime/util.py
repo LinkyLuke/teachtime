@@ -3,7 +3,7 @@ from datetime import datetime
 from flask import abort
 from werkzeug.routing import BaseConverter, ValidationError
 
-def dan_strftime(format, date):
+def ordinal_strftime(format, date):
     return date.strftime(format.replace('%o', {1: 'st', 2: 'nd', 3: 'rd'}.get(date.day if (date.day < 20) else (date.day % 10), 'th')))
 
 class ViewConverter(BaseConverter):

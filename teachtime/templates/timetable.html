@@ -1,15 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="d-flex py-2">
-    <h3 class="flex-grow-1">{{ timetable.title }}</h3>
-    <ul class="nav">
+<div class="d-flex py-1 mb-4 border-bottom">
+    <h1 class="display-4 flex-grow-1">{{ timetable.title }}</h1>
+    <ul class="timetable-options nav">
         <div class="dropdown show">
             <li class="nav-item">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdownView" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     View
                 </a>
-
                 <div class="dropdown-menu" area-labelledby="dropdownView">
                     <a class="dropdown-item" href="{{ url_for('routes.timetable', view='day', date=timetable.date) }}">Daily</a>
                     <a class="dropdown-item" href="{{ url_for('routes.timetable', view='month', date=timetable.date) }}">Monthly</a>

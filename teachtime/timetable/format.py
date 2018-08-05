@@ -1,7 +1,7 @@
 import calendar
 import datetime
 
-from teachtime.util import dan_strftime
+from teachtime.util import ordinal_strftime
 
 class TimetableFormatter:
     """Given a user's timetable, formats it at a certain date with a certain view"""
@@ -32,7 +32,7 @@ class TimetableFormatter:
     def title(self):
         """Return the title of the calendar"""
         return {
-            'day': dan_strftime('%A %d%o %B %Y', self.date),
+            'day': ordinal_strftime('%A %#d%o %B %Y', self.date), # NOTE: Not portable
             'month': self.date.strftime('%B %Y'),
             'year': self.date.strftime('%Y')
         }.get(self.view)
