@@ -1,0 +1,21 @@
+{% extends "timetable.html" %}
+{% block view %}
+
+<table class="day-timetable table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Time</th>
+            <th>Event</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for hour in range(9, 17) %}
+        <tr>
+            <th scope="row">{{ "%.2d:00"|format(hour) }}</th>
+            <td>&nbsp;</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
