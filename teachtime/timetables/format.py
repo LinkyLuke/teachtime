@@ -1,7 +1,7 @@
 import calendar
 import datetime
 
-from teachtime.util import ordinal_strftime
+from teachtime.timetables.utils import ordinal_strftime
 
 class TimetableFormatter:
     """Given a user's timetable, formats it at a certain date with a certain view"""

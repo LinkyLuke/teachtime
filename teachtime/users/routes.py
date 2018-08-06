@@ -1,34 +1,21 @@
-import secrets
 import os
-import datetime
+import secrets
 
+from flask import Blueprint, request, redirect, url_for, flash, render_template
+from flask_login import current_user, login_required, login_user, logout_user
 from PIL import Image
 
-from flask import Blueprint, request, url_for, flash, redirect, render_template
-from flask_login import current_user, login_required, login_user, logout_user
+from teachtime.teachtime import bcrypt, db
+from teachtime.models import User
+from teachtime.users.forms import RegistrationForm, LoginForm, UpdateAccountForm
 
-from .teachtime import bcrypt, db
-from .timetable.format import TimetableFormatter
-from .util import DateConverter
-from .forms import RegistrationForm, LoginForm, UpdateAccountForm
-from .models import User, Timetable
+users = Blueprint('users', __name__)
 
-routes = Blueprint('routes', __name__, template_folder='templates')
-
-@routes.route("/")
-@routes.route("/home")
-def home():
-	return render_template('index.html', title='Home')
-
-@routes.route("/about")
-def about():
-	return render_template('about.html', title='Home')
-
-@routes.route("/login", methods=['GET', 'POST'])
+@users.route("/login", methods=['GET', 'POST'])
 def login():
 
 	if current_user.is_authenticated:
-		return redirect(url_for('routes.home'))
+		return redirect(url_for('main.index'))
 
 	form = LoginForm()
 
@@ -38,17 +25,17 @@ def login():
 		if user and bcrypt.check_password_hash(user.password, form.password.data):
 			login_user(user, remember=form.remember.data)
 			next_page = request.args.get('next')
-			return redirect(next_page) if next_page else redirect(url_for('routes.home'))
+			return redirect(next_page) if next_page else redirect(url_for('main.index'))
 		else:
 			flash('Login Unsuccessful. Please check email and password', 'danger')
 
 	return render_template('login.html', title='Login', form=form)
 
-@routes.route("/register", methods=['GET', 'POST'])
+@users.route("/register", methods=['GET', 'POST'])
 def register():
 
 	if current_user.is_authenticated:
-		return redirect(url_for('routes.home'))
+		return redirect(url_for('main.index'))
 
 	form = RegistrationForm()
 
@@ -60,14 +47,14 @@ def register():
 		db.session.commit()
 
 		flash('Your account has been created. You are now able to log in!', 'success')
-		return redirect(url_for('routes.home'))
+		return redirect(url_for('main.index'))
 
 	return render_template('register.html', title='Register', form=form)
 
-@routes.route("/logout")
+@users.route("/logout")
 def logout():
 	logout_user()
-	return redirect(url_for('routes.home'))
+	return redirect(url_for('main.index'))
 
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
@@ -82,7 +69,7 @@ def save_picture(form_picture):
 
     return picture_fn
 
-@routes.route("/account", methods=["GET", "POST"])
+@users.route("/account", methods=["GET", "POST"])
 @login_required
 def account():
     form = UpdateAccountForm()
@@ -94,7 +81,7 @@ def account():
         current_user.email = form.email.data
         db.session.commit()
         flash('Your account has been updated', 'success')
-        return redirect(url_for('routes.account'))
+        return redirect(url_for('users.account'))
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
@@ -102,16 +89,3 @@ def account():
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
 
     return render_template('account.html', title='Account', image_file=image_file, form=form)
-
-@routes.route('/timetable', defaults={'view': 'day', 'date': datetime.datetime.today()})
-@routes.route('/timetable/<view:view>/<date:date>')
-def timetable(view, date):
-	timetable = TimetableFormatter(view, date)
-
-	template = {
-		'day': '_day.html',
-		'month': '_month.html',
-		'year': '_year.html'
-	}.get(view)
-
-	return render_template(template, title='Timetable', timetable=timetable)
