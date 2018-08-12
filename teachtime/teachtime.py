@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
 from teachtime.config import Config
-from teachtime.timetables.utils import ViewConverter, DateConverter
+from teachtime.calendars.utils import ViewConverter, DateConverter
 
 bcrypt = Bcrypt()
 login_manager = LoginManager()
@@ -43,8 +43,8 @@ def create_app(config=Config):
 	app.register_blueprint(main)
 	from teachtime.users.routes import users
 	app.register_blueprint(users)
-	from teachtime.timetables.routes import timetables
-	app.register_blueprint(timetables)
+	from teachtime.calendars.routes import calendars
+	app.register_blueprint(calendars)
 
 	return app
 

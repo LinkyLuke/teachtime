@@ -2,27 +2,27 @@
 {% block content %}
 
 <div class="d-flex py-1 mb-4 border-bottom">
-    <h1 class="display-4 flex-grow-1">{{ timetable.title }}</h1>
-    <ul class="timetable-options nav">
+    <h1 class="display-4 flex-grow-1">{{ calendar.title }}</h1>
+    <ul class="calendar-options nav">
         <div class="dropdown show">
             <li class="nav-item">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdownView" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     View
                 </a>
                 <div class="dropdown-menu" area-labelledby="dropdownView">
-                    <a class="dropdown-item" href="{{ url_for('timetables.timetable', view='day', date=timetable.date) }}">Daily</a>
-                    <a class="dropdown-item" href="{{ url_for('timetables.timetable', view='month', date=timetable.date) }}">Monthly</a>
-                    <a class="dropdown-item" href="{{ url_for('timetables.timetable', view='year', date=timetable.date) }}">Yearly</a>
+                    <a class="dropdown-item" href="{{ url_for('calendars.calendar', view='day', date=calendar.date) }}">Daily</a>
+                    <a class="dropdown-item" href="{{ url_for('calendars.calendar', view='month', date=calendar.date) }}">Monthly</a>
+                    <a class="dropdown-item" href="{{ url_for('calendars.calendar', view='year', date=calendar.date) }}">Yearly</a>
                 </div>
             </li>
         </div>
         <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('timetables.timetable', view=timetable.view, date=timetable.previous_date) }}">
+            <a class="nav-link" href="{{ url_for('calendars.calendar', view=calendar.view, date=calendar.previous_date) }}">
                 <i class="mr-2 fas fa-arrow-left"></i>Previous
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('timetables.timetable', view=timetable.view, date=timetable.next_date) }}">
+            <a class="nav-link" href="{{ url_for('calendars.calendar', view=calendar.view, date=calendar.next_date) }}">
                 Next<i class="ml-2 fas fa-arrow-right"></i>
             </a>
         </li>

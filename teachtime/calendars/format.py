@@ -1,9 +1,9 @@
 import calendar
 import datetime
 
-from teachtime.timetables.utils import ordinal_strftime
+from teachtime.calendars.utils import ordinal_strftime
 
-class TimetableFormatter:
+class CalendarFormatter:
     """Given a user's timetable, formats it at a certain date with a certain view"""
 
     @staticmethod
@@ -40,12 +40,12 @@ class TimetableFormatter:
     @property
     def next_date(self):
         """Return the next calendar view date"""
-        return self.date + datetime.timedelta(days=TimetableFormatter.view_days[self.view])
+        return self.date + datetime.timedelta(days=CalendarFormatter.view_days[self.view])
 
     @property
     def previous_date(self):
         """Return the previous calendar view date"""
-        return self.date + datetime.timedelta(days=-TimetableFormatter.view_days[self.view])
+        return self.date + datetime.timedelta(days=-CalendarFormatter.view_days[self.view])
 
     # Month properties
     @property

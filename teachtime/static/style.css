@@ -1,61 +1,61 @@
-.timetable-options {
+.calendar-options {
   align-items: center;
 }
 
-table.month-timetable {
+table.month-calendar {
   table-layout: fixed;
 }
 
-table.month-timetable tbody > tr {
+table.month-calendar tbody > tr {
   height: 120px;
 }
 
-table.month-timetable td {
+table.month-calendar td {
   padding-top: 0;
   padding-left: 0;
   padding-right: 0;
   font-size: 0.8rem;
 }
 
-table.month-timetable td.no-day {
+table.month-calendar td.no-day {
   background: #c3c3c3;
 }
 
-table.month-timetable div.day-number {
+table.month-calendar div.day-number {
   background: #c9c9c9;
   padding-left: 0.3rem;
   margin-bottom: 0.2rem;
 }
 
-table.month-timetable ul.event-list {
+table.month-calendar ul.event-list {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-table.month-timetable ul.event-list li {
+table.month-calendar ul.event-list li {
   background: #33acff;
   padding-left: 0.3rem;
 }
 
-table.day-timetable {
+table.day-calendar {
   table-layout: auto;
 }
 
-table.day-timetable tbody tr td {
+table.day-calendar tbody tr td {
   width: 100%;
   border: 0;
 }
 
-table.year-timetable {
+table.year-calendar {
   table-layout: fixed;
   width: 100%;
 }
 
-table.year-timetable td {
+table.year-calendar td {
   white-space: nowrap;
 }
 
-table.year-timetable td.no-day {
+table.year-calendar td.no-day {
   background: #c3c3c3;
 }

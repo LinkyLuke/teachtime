@@ -1,13 +1,13 @@
-{% extends "timetable.html" %}
+{% extends "calendar.html" %}
 {% block view %}
 
 {% set ns = namespace(count=1) %}
-{% for row in timetable.months %}
+{% for row in calendar.months %}
 <div class="row">
     {% for month in row %}
     <div class="col">
-        <h2 class="text-center">{{ timetable.month_name(ns.count) }}</h2>
-        <table class="year-timetable table table-bordered">
+        <h2 class="text-center">{{ calendar.month_name(ns.count) }}</h2>
+        <table class="year-calendar table table-bordered">
             <thead>
                 <tr>
                     <th>M</th>

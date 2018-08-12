@@ -1,16 +1,16 @@
-{% extends "timetable.html" %}
+{% extends "calendar.html" %}
 {% block view %}
 
-<table class="month-timetable table table-bordered">
+<table class="month-calendar table table-bordered">
     <thead>
         <tr>
-            {% for day in timetable.weekdays %}
+            {% for day in calendar.weekdays %}
             <th scope="col">{{ day.name }}</th>
             {% endfor %}
         </tr>
     </thead>
     <tbody>
-        {% for week in timetable.weeks %}
+        {% for week in calendar.weeks %}
         <tr>
         {% for day, weekday in week %}
             {% if day == 0 %}
