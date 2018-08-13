@@ -23,6 +23,7 @@ class User(db.Model, UserMixin):
 class Timetable(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	title = db.Column(db.String(200), nullable=False)
+	start_date = db.Column(db.Date, nullable=False, default=datetime.utcnow)
 	events = db.relationship('Event', backref='timetable', lazy=True)
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
@@ -33,8 +34,8 @@ class Timetable(db.Model):
 class Event(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	title = db.Column(db.String(200), nullable=False)
-	time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 	content = db.Column(db.Text, nullable=False)
+	offset_timedelta = db.Column(db.Interval, nullable=False)
 	timetable_id = db.Column(db.Integer, db.ForeignKey('timetable.id'), nullable=False)
 
 	def __repr__(self):
