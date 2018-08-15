@@ -45,6 +45,8 @@ def create_app(config=Config):
 	app.register_blueprint(users)
 	from teachtime.calendars.routes import calendars
 	app.register_blueprint(calendars)
+	from teachtime.errors.handlers import errors
+	app.register_blueprint(errors)
 
 	return app
 
