@@ -47,6 +47,16 @@ table.day-calendar tbody tr td {
   border: 0;
 }
 
+table.week-calendar thead tr th {
+  text-align: center;
+}
+
+table.week-calendar tbody tr td {
+  border-top: 0;
+  border-bottom: 0;
+  width: 14.29%;
+}
+
 table.year-calendar {
   table-layout: fixed;
   width: 100%;

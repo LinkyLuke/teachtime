@@ -1,0 +1,33 @@
+{% extends "calendar.html" %}
+{% block view %}
+
+<table class="week-calendar table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Day</th>
+            <th class="ml-auto">Mon</th>
+            <th>Tues</th>
+            <th>Wed</th>
+            <th>Thurs</th>
+            <th>Fri</th>
+            <th>Sat</th>
+            <th>Sun</th>  
+        </tr>    
+    </thead>
+    <tbody>
+        {% for hour in range(9, 19) %}
+        <tr>
+            <th scope="row">{{ "%.2d:00"|format(hour) }}</th>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

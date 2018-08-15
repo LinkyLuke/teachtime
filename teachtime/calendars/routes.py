@@ -13,6 +13,7 @@ def calendar(view, date):
 
 	template = {
 		'day': '_day.html',
+		'week': '_week.html',
 		'month': '_month.html',
 		'year': '_year.html'
 	}.get(view)

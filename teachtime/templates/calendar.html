@@ -11,6 +11,7 @@
                 </a>
                 <div class="dropdown-menu" area-labelledby="dropdownView">
                     <a class="dropdown-item" href="{{ url_for('calendars.calendar', view='day', date=calendar.date) }}">Daily</a>
+                    <a class="dropdown-item" href="{{ url_for('calendars.calendar', view='week', date=calendar.date) }}">Weekly</a>
                     <a class="dropdown-item" href="{{ url_for('calendars.calendar', view='month', date=calendar.date) }}">Monthly</a>
                     <a class="dropdown-item" href="{{ url_for('calendars.calendar', view='year', date=calendar.date) }}">Yearly</a>
                 </div>

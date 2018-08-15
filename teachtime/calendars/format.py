@@ -1,7 +1,7 @@
 import calendar
 import datetime
 
-from teachtime.calendars.utils import ordinal_strftime
+from teachtime.calendars.utils import ordinal_strftime, get_start_date_of_week_given_date_in_that_week
 
 class CalendarFormatter:
     """Given a user's timetable, formats it at a certain date with a certain view"""
@@ -18,6 +18,7 @@ class CalendarFormatter:
 
     view_days = {
         'day': 1,
+        'week': 7,
         'month': 31,
         'year': 365
     }
@@ -31,8 +32,10 @@ class CalendarFormatter:
     @property
     def title(self):
         """Return the title of the calendar"""
+        week_start_date = get_start_date_of_week_given_date_in_that_week(self.date)
         return {
             'day': ordinal_strftime('%A %#d%o %B %Y', self.date), # NOTE: Not portable
+            'week': ordinal_strftime('W/C %A %#d%o %B %Y', week_start_date),
             'month': self.date.strftime('%B %Y'),
             'year': self.date.strftime('%Y')
         }.get(self.view)
