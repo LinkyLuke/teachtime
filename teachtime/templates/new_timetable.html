@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="d-flex py-1 mb-4 border-bottom">
+    <h1 class="display-4 flex-grow-1">New Timetable</h1>
+    <form class="form-inline">
+  		<input type="text" class="form-control mb-2 mr-sm-2" id="title" placeholder="Title">
+  		<button type="button" class="btn btn-link">Set Title</button>
+  	</form>
+</div>
+
+<table class="week-calendar table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Day</th>
+            <th class="ml-auto">Mon</th>
+            <th>Tues</th>
+            <th>Wed</th>
+            <th>Thurs</th>
+            <th>Fri</th>
+            <th>Sat</th>
+            <th>Sun</th>  
+        </tr>    
+    </thead>
+    <tbody>
+        {% for hour in range(9, 19) %}
+        <tr>
+            <th scope="row">{{ "%.2d:00"|format(hour) }}</th>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<button type="button" class="btn btn-link">Add new event</button>
+
+
+{% endblock content %}

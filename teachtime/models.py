@@ -37,6 +37,6 @@ class Event(db.Model):
 	content = db.Column(db.Text, nullable=False)
 	offset_timedelta = db.Column(db.Interval, nullable=False)
 	timetable_id = db.Column(db.Integer, db.ForeignKey('timetable.id'), nullable=False)
-
+	
 	def __repr__(self):
 		return f"Event('{self.title}', '{self.time}', '{self.content}')"
