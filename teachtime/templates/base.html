@@ -20,22 +20,22 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{{ url_for('main.about') }}">About</a>
 						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Timetables
-							</a>
-							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="#">Week 1</a>
-								<a class="dropdown-item" href="#">Week 2</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Add New Timetable</a>
-							</div>
-						</li>
 					</ul>
 
 					<div class="navbar-nav">
 						{% if current_user.is_authenticated %}
 							<a class="nav-item nav-link" href="{{ url_for('calendars.calendar') }}">Calendar</a>
-							<a class="nav-item nav-link" href="{{ url_for('users.account') }}">My Account</a>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Timetables
+								</a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="#">Week 1</a>
+									<a class="dropdown-item" href="#">Week 2</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#">Add New Timetable</a>
+								</div>
+							</li>
+							<a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a>
 							<a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
 						{% else %}
 							<a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
