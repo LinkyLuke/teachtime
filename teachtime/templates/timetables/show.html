@@ -1,39 +1,56 @@
 {% extends "base.html" %}
 {% block content %}
-
-<div class="d-flex py-1 mb-4 border-bottom">
-    <h1 class="display-4 flex-grow-1">{{ timetable.title }}</h1>
-</div>
-
-<table class="week-calendar table table-bordered">
-    <thead>
-        <tr>
-            <th scope="col">Day</th>
-            <th>Mon</th>
-            <th>Tues</th>
-            <th>Wed</th>
-            <th>Thurs</th>
-            <th>Fri</th>
-            <th>Sat</th>
-            <th>Sun</th>  
-        </tr>    
-    </thead>
-    <tbody>
-        {% for hour in range(9, 19) %}
-        <tr>
-            <th scope="row">{{ "%.2d:00"|format(hour) }}</th>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-<a href="{{ url_for('timetables.create_event', id=timetable.id) }}">Add new event</a>
-
+    <div class="d-flex py-1 mb-4 border-bottom">
+        <h1 class="display-4 flex-grow-1">{{ timetable.title }}</h1>
+        <ul class="calendar-options nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('timetables.edit_timetable', id=timetable.id) }}">
+                    <i class="mr-2 fas fa-edit"></i>Edit timetable
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('timetables.create_event', id=timetable.id) }}">
+                    <i class="mr-2 fas fa-calendar-alt"></i>Create an event
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="mr-2 fas fa-arrow-left"></i>Previous
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    Next<i class="ml-2 fas fa-arrow-right"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <table class="week-calendar table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Day</th>
+                <th>Mon</th>
+                <th>Tues</th>
+                <th>Wed</th>
+                <th>Thurs</th>
+                <th>Fri</th>
+                <th>Sat</th>
+                <th>Sun</th>  
+            </tr>    
+        </thead>
+        <tbody>
+            {% for hour in range(9, 19) %}
+            <tr>
+                <th scope="row">{{ "%.2d:00"|format(hour) }}</th>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock content %}
