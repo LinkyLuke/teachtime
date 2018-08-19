@@ -1,11 +1,15 @@
-{% extends "calendar.html" %}
-{% block view %}
+{% extends "base.html" %}
+{% block content %}
+
+<div class="d-flex py-1 mb-4 border-bottom">
+    <h1 class="display-4 flex-grow-1">{{ timetable.title }}</h1>
+</div>
 
 <table class="week-calendar table table-bordered">
     <thead>
         <tr>
             <th scope="col">Day</th>
-            <th class="ml-auto">Mon</th>
+            <th>Mon</th>
             <th>Tues</th>
             <th>Wed</th>
             <th>Thurs</th>
@@ -30,4 +34,6 @@
     </tbody>
 </table>
 
-{% endblock %}
+<a href="{{ url_for('timetables.create_event', id=timetable.id) }}">Add new event</a>
+
+{% endblock content %}
