@@ -4,7 +4,9 @@ import datetime
 from teachtime.calendars.utils import ordinal_strftime, get_start_date_of_week_given_date_in_that_week
 
 class CalendarFormatter:
-    """Given a user's timetable, formats it at a certain date with a certain view"""
+    """Given a user's timetables, formats a calendar containing those
+    timetables at a certain date and a certain view.
+    """
 
     @staticmethod
     def day_name(day):
