@@ -11,11 +11,4 @@ calendars = Blueprint('calendars', __name__)
 def calendar(view, date):
 	calendar = CalendarFormatter(view, date)
 
-	template = {
-		'day': '_day.html',
-		'week': '_week.html',
-		'month': '_month.html',
-		'year': '_year.html'
-	}.get(view)
-
-	return render_template(template, title='Calendar', calendar=calendar)
+	return render_template(f"calendars/{view}.html", title='Calendar', calendar=calendar)

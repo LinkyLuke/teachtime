@@ -1,13 +1,5 @@
-{% extends "base.html" %}
-{% block content %}
-
-<div class="d-flex py-1 mb-4 border-bottom">
-    <h1 class="display-4 flex-grow-1">New Timetable</h1>
-    <form class="form-inline">
-  		<input type="text" class="form-control mb-2 mr-sm-2" id="title" placeholder="Title">
-  		<button type="button" class="btn btn-link">Set Title</button>
-  	</form>
-</div>
+{% extends "calendars/calendar.html" %}
+{% block view %}
 
 <table class="week-calendar table table-bordered">
     <thead>
@@ -38,7 +30,4 @@
     </tbody>
 </table>
 
-<button type="button" class="btn btn-link">Add new event</button>
-
-
-{% endblock content %}
+{% endblock %}

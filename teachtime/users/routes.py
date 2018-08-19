@@ -29,7 +29,7 @@ def login():
 		else:
 			flash('Login Unsuccessful. Please check email and password', 'danger')
 
-	return render_template('login.html', title='Login', form=form)
+	return render_template('users/login.html', title='Login', form=form)
 
 @users.route("/register", methods=['GET', 'POST'])
 def register():
@@ -49,7 +49,7 @@ def register():
 		flash('Your account has been created. You are now able to log in!', 'success')
 		return redirect(url_for('main.index'))
 
-	return render_template('register.html', title='Register', form=form)
+	return render_template('users/register.html', title='Register', form=form)
 
 @users.route("/logout")
 def logout():
@@ -88,4 +88,4 @@ def account():
 
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
 
-    return render_template('account.html', title='Account', image_file=image_file, form=form)
+    return render_template('users/account.html', title='Account', image_file=image_file, form=form)
