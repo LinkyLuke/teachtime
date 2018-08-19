@@ -18,7 +18,7 @@ def create_app(config=Config):
 	app.config.from_object(config)
 
 	# SQLAlchemy
-	from .models import User, Timetable
+	from teachtime.models import User, Timetable
 	db.init_app(app)
 	with app.app_context():
 		db.create_all()
