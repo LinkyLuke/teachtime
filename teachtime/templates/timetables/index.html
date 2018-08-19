@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
-	<div class="content-section">
+	<div class="content card">
         {% if timetables %}
-        <ul class="list-group">
+        <div class="card-header">
+            Timetables
+        </div>
+        <ul class="list-group list-group-flush">
             {% for timetable in timetables %}
             <li class="list-group-item">
                 <a href="{{ url_for('timetables.show', id=timetable.id) }}">{{ timetable.title }}</a>
@@ -12,7 +15,7 @@
         </ul>
         {% else %}
         <div class="alert alert-primary" role="alert">
-            You have no timetables.
+            You have no timetables
         </div>
         {% endif %}
 	</div>
