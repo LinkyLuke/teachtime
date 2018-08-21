@@ -16,3 +16,9 @@ class CreateEventForm(FlaskForm):
     description = StringField('Description')
     time = DateTimeField('Time', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+class EditEventForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired(), Length(min=2, max=20)])
+    description = StringField('Description')
+    time = DateTimeField('Time', validators=[DataRequired()])
+    submit = SubmitField('Submit')
