@@ -29,9 +29,6 @@
 								<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Timetables
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									{% block dropdown %}{% endblock %}
-									<a class="dropdown-item" href="{{ url_for('timetables.list_timetables') }}">List all timetables</a>
-									<a class="dropdown-item" href="{{ url_for('timetables.create_timetable') }}">Create timetable</a>
 								</div>
 							</li>
 							<a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a>
