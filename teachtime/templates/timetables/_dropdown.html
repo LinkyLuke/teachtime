@@ -1,8 +1,8 @@
-{% if timetables %}
-    {% for timetable in timetables %}
-        <a class="dropdown-item" href="{{ url_for('timetables.show_timetable', timetable_id=timetable.id) }}">{{ timetable.title }}</a>
-    {% endfor %}
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="{{ url_for('timetables.list_timetables') }}">List all timetables</a>
-    <a class="dropdown-item" href="{{ url_for('timetables.create_timetable') }}">Create timetable</a>
-{% endif %}
+{% for timetable in timetables %}
+    <a class="dropdown-item" href="{{ url_for('timetables.show_timetable', timetable_id=timetable.id) }}">{{ timetable.title }}</a>
+    {% if loop.last %}
+        <div class="dropdown-divider"></div>
+    {% endif %}
+{% endfor %}
+<a class="dropdown-item" href="{{ url_for('timetables.list_timetables') }}">List all timetables</a>
+<a class="dropdown-item" href="{{ url_for('timetables.create_timetable') }}">Create timetable</a>
