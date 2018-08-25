@@ -13,6 +13,7 @@ flask-bcrypt = "*"
 flask-login = "*"
 pillow = "*"
 bcrypt = "*"
+flask-debugtoolbar = "*"
 
 [dev-packages]
 pylint = "*"
