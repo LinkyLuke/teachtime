@@ -27,7 +27,7 @@ def list_timetables():
     Show all timetables
     """
     timetables = Timetable.query.filter_by(user_id=current_user.id)
-    return render_template('timetables/index.html', title="Timetables", timetables=timetables)
+    return render_template('timetables/list_timetables.html', title="Timetables", timetables=timetables)
 
 @timetables.route('/timetables/create')
 @login_required
@@ -37,7 +37,7 @@ def create_timetable():
     Show the form to create a new timetable
     """
     form = CreateTimetableForm()
-    return render_template('timetables/create.html', title="Create a timetable", form=form)
+    return render_template('timetables/create_timetable.html', title="Create a timetable", form=form)
 
 @timetables.route('/timetables', methods=['POST'])
 @login_required
@@ -67,7 +67,7 @@ def show_timetable(timetable_id):
     Show a timetable from the database
     """
     timetable = Timetable.query.get_or_404(timetable_id)
-    return render_template('timetables/show.html', title=f"Timetable {timetable.title}", timetable=timetable)
+    return render_template('timetables/show_timetable.html', title=f"Timetable {timetable.title}", timetable=timetable)
 
 @timetables.route('/timetables/<int:timetable_id>/edit', methods=['GET'])
 @login_required
@@ -78,7 +78,7 @@ def edit_timetable(timetable_id):
     """
     timetable = Timetable.query.get_or_404(timetable_id)
     form = EditTimetableForm()
-    return render_template('timetables/edit.html', title=f"Timetable {timetable.title}", timetable=timetable, form=form)
+    return render_template('timetables/edit_timetable.html', title=f"Timetable {timetable.title}", timetable=timetable, form=form)
 
 @timetables.route('/timetables/<int:timetable_id>', methods=['PUT'])
 @login_required
@@ -109,7 +109,7 @@ def create_event(timetable_id):
     Show the form to create a new event
     """
     form = CreateEventForm()
-    return render_template('events/create.html', title="Create an event", timetable_id=timetable_id, form=form)
+    return render_template('timetables/create_event.html', title="Create an event", timetable_id=timetable_id, form=form)
 
 @timetables.route('/timetables/<int:timetable_id>/events', methods=['POST'])
 @login_required
@@ -144,7 +144,7 @@ def show_event(event_id):
     Show an event from the database
     """
     event = Event.query.get(event_id)
-    return render_template('events/show.html', title=f"Event {event.title}", event=event)
+    return render_template('timetables/show_event.html', title=f"Event {event.title}", event=event)
 
 @timetables.route('/timetables/<int:timetable_id>/events/<int:event_id>/edit')
 @login_required
@@ -155,7 +155,7 @@ def edit_event(event_id):
     """
     event = Event.query.get_or_404(event_id)
     form = EditEventForm()
-    return render_template('events/edit.html', title=f"Event {event.title}", event=event, form=form)
+    return render_template('timetables/edit_event.html', title=f"Event {event.title}", event=event, form=form)
 
 @timetables.route('/timetables/<int:timetable_id>/events/')
 @login_required
