@@ -6,6 +6,9 @@
 # TeachTime specific
 *.db
 
+# Editor
+.vscode
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
