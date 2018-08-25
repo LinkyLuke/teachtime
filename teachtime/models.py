@@ -28,15 +28,16 @@ class Timetable(db.Model):
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 	def __repr__(self):
-		return f"Timetable('{self.title}',  '{self.content}')"
+		return f"Timetable('{self.title}')"
 
 
 class Event(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	title = db.Column(db.String(20), nullable=False)
+	start_time = db.Column(db.Time, nullable=False)
+	end_time = db.Column(db.Time, nullable=False)
 	description = db.Column(db.Text, nullable=False)
-	offset_timedelta = db.Column(db.Interval, nullable=False)
 	timetable_id = db.Column(db.Integer, db.ForeignKey('timetable.id'), nullable=False)
 	
 	def __repr__(self):
-		return f"Event('{self.title}', '{self.time}', '{self.description}')"
+		return f"Event('{self.title}', '{self.start_time}-{self.end_time}', '{self.description}')"

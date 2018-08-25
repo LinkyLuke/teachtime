@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateTimeField, SubmitField
+from wtforms import StringField, DateField, SubmitField
+from wtforms_components import TimeField
 from wtforms.validators import DataRequired, Length, ValidationError
 
 class CreateTimetableForm(FlaskForm):
@@ -8,17 +9,19 @@ class CreateTimetableForm(FlaskForm):
 
 class EditTimetableForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(min=2, max=20)])
-    time = DateTimeField('Start time')
+    start_date = DateField('Start date')
     submit = SubmitField('Submit')
 
 class CreateEventForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(min=2, max=20)])
     description = StringField('Description')
-    time = DateTimeField('Time', validators=[DataRequired()])
+    start_time = TimeField('Start time', validators=[DataRequired()])
+    end_time = TimeField('End time', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class EditEventForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(min=2, max=20)])
     description = StringField('Description')
-    time = DateTimeField('Time', validators=[DataRequired()])
+    start_time = TimeField('Start time', validators=[DataRequired()])
+    end_time = TimeField('End time', validators=[DataRequired()])
     submit = SubmitField('Submit')

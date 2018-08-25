@@ -124,8 +124,9 @@ def store_event(timetable_id):
     if form.validate_on_submit():
         event = Event(
             title=form.title.data,
+            start_time=form.start_time.data,
+            end_time=form.end_time.data,
             description=form.description.data,
-            offset=form.time.data,
             timetable = timetable
         )
 
