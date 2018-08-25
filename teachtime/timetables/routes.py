@@ -139,7 +139,7 @@ def store_event(timetable_id):
 # a timetable, not a calendar
 @timetables.route('/timetables/<int:timetable_id>/events/<int:event_id>')
 @login_required
-def show_event(event_id):
+def show_event(timetable_id, event_id):
     """GET /timetables/<timetable_id/events/<event_id>
 
     Show an event from the database
@@ -149,7 +149,7 @@ def show_event(event_id):
 
 @timetables.route('/timetables/<int:timetable_id>/events/<int:event_id>/edit')
 @login_required
-def edit_event(event_id):
+def edit_event(timetable_id, event_id):
     """GET /timetables/<timetable_id>/events/<event_id>/edit
 
     Show the form for editing an event
@@ -160,7 +160,7 @@ def edit_event(event_id):
 
 @timetables.route('/timetables/<int:timetable_id>/events/')
 @login_required
-def update_event(event_id):
+def update_event(timetable_id, event_id):
     """PUT /timetables/<timetable_id>/events/<event_id>
 
     Updates the event in the database
