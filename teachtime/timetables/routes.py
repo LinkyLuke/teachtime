@@ -14,7 +14,7 @@ timetables = Blueprint('timetables', __name__)
 
 @timetables.route('/timetables/dropdown')
 @login_required
-def timetable_dropdown():
+def dropdown():
     timetables = Timetable.query.filter_by(user_id=current_user.id)
     return render_template('timetables/_dropdown.html', timetables=timetables)
 
