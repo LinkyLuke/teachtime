@@ -2,7 +2,7 @@ from datetime import datetime
 
 from flask_login import UserMixin
 
-from itsdangerous import TimedJSONWebSignitureSerializer as Serializer
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 from teachtime.teachtime import db, login_manager, app
 

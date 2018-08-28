@@ -14,6 +14,7 @@ flask-login = "*"
 pillow = "*"
 bcrypt = "*"
 faker = "*"
+flask-mail = "*"
 
 [dev-packages]
 pylint = "*"
