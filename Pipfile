@@ -15,6 +15,7 @@ pillow = "*"
 bcrypt = "*"
 flask-debugtoolbar = "*"
 wtforms-components = "*"
+faker = "*"
 
 [dev-packages]
 pylint = "*"
