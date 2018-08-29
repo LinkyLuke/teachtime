@@ -5,6 +5,7 @@ class Config:
 	SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'
 	LOGIN_VIEW = 'users.login'
 	LOGIN_MESSAGE_CATEGORY = 'info'
+	SECURITY_PASSWORD_SALT = 'my_precious_two'
 
 	# Flask-Mail
 	MAIL_SERVER = 'smtp.googlemail.com'

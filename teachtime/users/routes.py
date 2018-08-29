@@ -1,5 +1,6 @@
 import os
 import secrets
+import datetime
 
 from flask import Blueprint, request, redirect, url_for, flash, render_template
 from flask_login import current_user, login_required, login_user, logout_user
@@ -42,7 +43,7 @@ def register():
 
 	if form.validate_on_submit():
 		hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-		user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+		user = User(username=form.username.data, email=form.email.data, password=hashed_password, confirmed=False)
 		db.session.add(user)
 		db.session.commit()
 		user = User.query.filter_by(email=form.email.data).first()
@@ -61,6 +62,12 @@ def register_token(token):
 	if user is None:
 		flash('That is an invalid or expired token', 'warning')
 		return redirect(url_for('users.register'))
+	if user.confirmed:
+		flash('Account already confirmed. Log in you noob!', 'success')
+	user.confirmed=True
+	user.confirmed_on = datetime.datetime.now()
+	db.session.add(user)
+	db.session.commit()
 	flash('Your account has been created and validated. You are now able to log in!', 'success')
 	return redirect(url_for('main.index'))
 

@@ -18,6 +18,8 @@ class User(db.Model, UserMixin):
 	email = db.Column(db.String(120), unique=True, nullable=False)
 	image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
 	password = db.Column(db.String(60), nullable = False)
+	confirmed = db.Column(db.Boolean, nullable=False, default=False)
+	confirmed_on = db.Column(db.DateTime, nullable=True)
 	timetables = db.relationship('Timetable', backref='user', lazy=True)
 
 	def get_reset_token(self, expires_sec=1800):
@@ -25,7 +27,7 @@ class User(db.Model, UserMixin):
 		return s.dumps({'user_id': self.id}).decode('utf-8')
 
 	def get_register_token(self, expires_sec=1800):
-		s = Serializer(Config.SECRET_KEY, expires_sec)
+		s= Serializer(Config.SECRET_KEY, expires_sec)
 		return s.dumps({'user_id': self.id}).decode('utf-8')
 
 	@staticmethod
@@ -47,7 +49,7 @@ class User(db.Model, UserMixin):
 		return User.query.get(user_id)
 
 	def __repr__(self):
-		return f"User('{self.username}', '{self.email}', '{self.image_file}')"
+		return f"User('{self.username}', '{self.email}', '{self.image_file}', {self.confirmed}, {self.confirmed_on})"
 
 
 class Timetable(db.Model):
