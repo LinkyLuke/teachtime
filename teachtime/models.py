@@ -35,7 +35,7 @@ class User(db.Model, UserMixin):
 			user_id = s.loads(token)['user_id']
 		except:
 			return None
-		return user.query.get(user_id)
+		return User.query.get(user_id)
 
 	@staticmethod
 	def verify_register_token(token):
@@ -44,7 +44,7 @@ class User(db.Model, UserMixin):
 			user_id = s.loads(token)['user_id']
 		except:
 			return None
-		return user.query.get(user_id)
+		return User.query.get(user_id)
 
 	def __repr__(self):
 		return f"User('{self.username}', '{self.email}', '{self.image_file}')"

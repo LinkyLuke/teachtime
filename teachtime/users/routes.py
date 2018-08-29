@@ -61,7 +61,6 @@ def register_token(token):
 	if user is None:
 		flash('That is an invalid or expired token', 'warning')
 		return redirect(url_for('users.register'))
-
 	flash('Your account has been created and validated. You are now able to log in!', 'success')
 	return redirect(url_for('main.index'))
 
