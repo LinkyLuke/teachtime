@@ -1,18 +1,25 @@
 from flask import Flask
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 from flask_bcrypt import Bcrypt
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_mail import Mail
 
 from teachtime.config import Config
 from teachtime.calendars.utils import ViewConverter, DateConverter
+
+import os
 
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 db = SQLAlchemy()
 migrate = Migrate(db=db)
 toolbar = DebugToolbarExtension()
+mail = Mail()
+admin = Admin()
 
 def create_app(config=Config):
 	# Flask
@@ -39,6 +46,21 @@ def create_app(config=Config):
 	login_manager.login_view = Config.LOGIN_VIEW
 	login_manager.login_message_category = Config.LOGIN_MESSAGE_CATEGORY
 
+	# Flask-Mail
+	mail.init_app(app)
+
+	# Flask-Admin
+	admin.init_app(app)
+	admin.add_view(ModelView(User, db.session))
+	admin.add_view(ModelView(Timetable, db.session))
+
+	def security_context_processor():
+		return dict(
+			admin_base_template=admin_base_template,
+			admin_view = admin.index_view,
+			h=admin_helpers,
+		)
+
 	# Custom converters
 	app.url_map.converters['view'] = ViewConverter
 	app.url_map.converters['date'] = DateConverter
@@ -56,6 +78,8 @@ def create_app(config=Config):
 	app.register_blueprint(errors)
 
 	return app
+
+
 
 if __name__ == '__main__':
 	app = create_app()

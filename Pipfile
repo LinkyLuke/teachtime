@@ -16,6 +16,9 @@ bcrypt = "*"
 flask-debugtoolbar = "*"
 wtforms-components = "*"
 faker = "*"
+flask-mail = "*"
+flask-admin = "*"
+flask-security = "*"
 
 [dev-packages]
 pylint = "*"
