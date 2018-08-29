@@ -97,24 +97,25 @@ def send_reset_email(user):
 	msg = Message('Password Reset Request', 
 					sender='noreply@teachtime.com', recipients=[user.email])
 	msg.body = f'''To reset your password visit the following link:
-{url_for('reset_token', token=token, _external = True)}
+{url_for('users.reset_token', token=token, _external = True)}
 If you did not make this request, simply ignore this email. No changes will be made.
 '''
+	mail.send(msg)
 
 	
-@app.route("/reset_password", methods=['GET', 'POST'])
+@users.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
 	if current_user.is_authenticated:
 		return redirect(url_for('main.index'))
 	form = RequestResetForm()
 	if form.validate_on_submit():
-		user = User.query.filter_by(email=form.email.date).first()
+		user = User.query.filter_by(email=form.email.data).first()
 		send_reset_email(user)
 		flash('An email has been sent with instructions to reset your password', 'info')
-		return redirect(url_for(users.login))
+		return redirect(url_for('users.login'))
 	return render_template('users/reset_request.html', title='Reset Password', form=form)
 
-@app.route("/reset_password/<token>", methods=['GET', 'POST'])
+@users.route("/reset_password/<token>", methods=['GET', 'POST'])
 def reset_token(token):
 	if current_user.is_authenticated:
 		return redirect(url_for('main.index'))
