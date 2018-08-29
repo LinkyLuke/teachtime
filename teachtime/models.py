@@ -24,8 +24,21 @@ class User(db.Model, UserMixin):
 		s = Serializer(Config.SECRET_KEY, expires_sec)
 		return s.dumps({'user_id': self.id}).decode('utf-8')
 
+	def get_register_token(self, expires_sec=1800):
+		s = Serializer(Config.SECRET_KEY, expires_sec)
+		return s.dumps({'user_id': self.id}).decode('utf-8')
+
 	@staticmethod
 	def verify_reset_token(token):
+		s = Serializer(Config.SECRET_KEY)
+		try:
+			user_id = s.loads(token)['user_id']
+		except:
+			return None
+		return user.query.get(user_id)
+
+	@staticmethod
+	def verify_register_token(token):
 		s = Serializer(Config.SECRET_KEY)
 		try:
 			user_id = s.loads(token)['user_id']

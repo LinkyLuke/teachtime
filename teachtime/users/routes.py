@@ -42,13 +42,28 @@ def register():
 
 	if form.validate_on_submit():
 		hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-		
 		user = User(username=form.username.data, email=form.email.data, password=hashed_password)
 		db.session.add(user)
 		db.session.commit()
-
-		flash('Your account has been created. You are now able to log in!', 'success')
+		user = User.query.filter_by(email=form.email.data).first()
+		send_validation_email(user)
+		flash('An email has been sent to the address provided. Please follow the link provided in the email to confirm your account', 'success')
 		return redirect(url_for('main.index'))
+
+	return render_template('users/register.html', title='Register', form=form)
+
+@users.route("/register/<token>", methods=['GET', 'POST'])
+def register_token(token):
+
+	if current_user.is_authenticated:
+		return redirect(url_for('main.index'))
+	user = User.verify_register_token(token)
+	if user is None:
+		flash('That is an invalid or expired token', 'warning')
+		return redirect(url_for('users.register'))
+
+	flash('Your account has been created and validated. You are now able to log in!', 'success')
+	return redirect(url_for('main.index'))
 
 	return render_template('users/register.html', title='Register', form=form)
 
@@ -58,38 +73,48 @@ def logout():
 	return redirect(url_for('main.index'))
 
 def save_picture(form_picture):
-    random_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(form_picture.filename)
-    picture_fn = random_hex + f_ext
-    picture_path = os.path.join(app.root_path, 'static\\profile_pics', picture_fn)
-    
-    output_size = (125, 125)
-    i = Image.open(form_picture)
-    i.thumbnail(output_size)
-    i.save(picture_path)
+	random_hex = secrets.token_hex(8)
+	_, f_ext = os.path.splitext(form_picture.filename)
+	picture_fn = random_hex + f_ext
+	picture_path = os.path.join(app.root_path, 'static\\profile_pics', picture_fn)
+	
+	output_size = (125, 125)
+	i = Image.open(form_picture)
+	i.thumbnail(output_size)
+	i.save(picture_path)
 
-    return picture_fn
+	return picture_fn
 
 @users.route("/account", methods=["GET", "POST"])
 @login_required
 def account():
-    form = UpdateAccountForm()
-    if form.validate_on_submit():
-        if form.picture.data:
-            picture_file = save_picture(form.picture.data)
-            current_user.image_file = picture_file
-        current_user.username = form.username.data
-        current_user.email = form.email.data
-        db.session.commit()
-        flash('Your account has been updated', 'success')
-        return redirect(url_for('users.account'))
-    elif request.method == 'GET':
-        form.username.data = current_user.username
-        form.email.data = current_user.email
+	form = UpdateAccountForm()
+	if form.validate_on_submit():
+		if form.picture.data:
+			picture_file = save_picture(form.picture.data)
+			current_user.image_file = picture_file
+		current_user.username = form.username.data
+		current_user.email = form.email.data
+		db.session.commit()
+		flash('Your account has been updated', 'success')
+		return redirect(url_for('users.account'))
+	elif request.method == 'GET':
+		form.username.data = current_user.username
+		form.email.data = current_user.email
 
-    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+	image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
 
-    return render_template('users/account.html', title='Account', image_file=image_file, form=form)
+	return render_template('users/account.html', title='Account', image_file=image_file, form=form)
+
+def send_validation_email(user):
+	token = user.get_register_token()
+	msg = Message('Registration Request', sender='noreply@teachtime.com',
+					 recipients=[user.email])
+	msg.body = f'''Thank you for registering for the TeachTime. To activate your account, 
+click the following link: {url_for('users.register_token', token=token, _external=True)}
+If you did not choose to register for our excellent service, please disregard this email. 
+'''
+	mail.send(msg)
 
 
 def send_reset_email(user):
