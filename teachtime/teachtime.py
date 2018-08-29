@@ -1,4 +1,6 @@
 from flask import Flask
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
@@ -15,6 +17,7 @@ login_manager = LoginManager()
 db = SQLAlchemy()
 migrate = Migrate(db=db)
 mail = Mail()
+admin = Admin()
 
 def create_app(config=Config):
 	# Flask
@@ -40,6 +43,18 @@ def create_app(config=Config):
 
 	# Flask-Mail
 	mail.init_app(app)
+
+	# Flask-Admin
+	admin.init_app(app)
+	admin.add_view(ModelView(User, db.session))
+	admin.add_view(ModelView(Timetable, db.session))
+
+	def security_context_processor():
+		return dict(
+			admin_base_template=admin_base_template,
+			admin_view = admin.index_view,
+			h=admin_helpers,
+		)
 
 	# Custom converters
 	app.url_map.converters['view'] = ViewConverter

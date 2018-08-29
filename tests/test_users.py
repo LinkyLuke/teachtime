@@ -13,7 +13,7 @@ class TestUsers(unittest.TestCase):
 
 	def tearDown(self):
 		db.session.delete(self.user_1)
-		db.session.delete(self.email_1)
+		db.session.delete(self.emal_1)
 		
 if __name__ == '__main__':
 	unittest.main()
