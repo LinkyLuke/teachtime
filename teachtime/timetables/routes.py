@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template, redirect, url_for
 from flask_login import current_user, login_required
+from werkzeug.utils import secure_filename
 
 from teachtime.timetables.forms import (
     CreateTimetableForm,
@@ -9,6 +10,8 @@ from teachtime.timetables.forms import (
 )
 from teachtime.models import Timetable, Event
 from teachtime.teachtime import db
+
+import os
 
 timetables = Blueprint('timetables', __name__)
 
@@ -137,7 +140,7 @@ def store_event(timetable_id):
 
 # NOTE: This route is used when a user is viewing an event in the context of 
 # a timetable, not a calendar
-@timetables.route('/timetables/<int:timetable_id>/events/<int:event_id>')
+@timetables.route('/timetables/<int:timetable_id>/events/<int:event_id>', methods=['GET', 'POST'])
 @login_required
 def show_event(timetable_id, event_id):
     """GET /timetables/<timetable_id/events/<event_id>
@@ -145,6 +148,25 @@ def show_event(timetable_id, event_id):
     Show an event from the database
     """
     event = Event.query.get(event_id)
+    UPLOAD_FOLDER="static/files"
+    ALLOWED_EXTENSIONS = set(['txt' 'docx' 'jpg' 'gif' 'jpeg'])
+
+    def allowed_file(filename):
+        return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            flash('No file found', 'danger')
+            return redirect(url_for('main.index'))
+        file = request.files['file']
+        if file.filename == '':
+            flash('No file selected', 'danger')
+            return redirect(url_for('main.index'))
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.route_path, 'static\\files', filename))
+            return redirect(url_for('main.index', filename=filename))
     return render_template('timetables/show_event.html', title=f"Event {event.title}", event=event)
 
 @timetables.route('/timetables/<int:timetable_id>/events/<int:event_id>/edit')

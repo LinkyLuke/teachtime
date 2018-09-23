@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="row justify-content-center">
+		<div class="col-md-9">
+			<div class="content">
+				<fieldset class="form-group">
+					<legend class="border-bottom mb-4">Event - {{ event.title }}</legend>
+				</fieldset>
+			</div>
+		<div class="upload_button">
+			<form method=post enctype=multipart/form-data>
+      			<input type=file name=file>
+      			<input type=submit value=Upload>
+    		</form>
+    	</div>
+	</div>
+{% endblock content %}
