@@ -6,6 +6,9 @@
 				<fieldset class="form-group">
 					<legend class="border-bottom mb-4">Event - {{ event.title }}</legend>
 				</fieldset>
+				<p> {{ event.description }} </p>
+				<p> Start Time: {{ event.start_time }} </p>
+				<p> End Time: {{ event.end_time }} </p>
 			</div>
 		<div class="upload_button">
 			<form method=post enctype=multipart/form-data>

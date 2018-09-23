@@ -69,6 +69,7 @@ class Event(db.Model):
 	start_time = db.Column(db.Time, nullable=False)
 	end_time = db.Column(db.Time, nullable=False)
 	description = db.Column(db.Text, nullable=False)
+	filename = db.Column(db.String, default=None, nullable=True)
 	timetable_id = db.Column(db.Integer, db.ForeignKey('timetable.id'), nullable=False)
 	
 	def __repr__(self):
