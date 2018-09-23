@@ -19,6 +19,8 @@ faker = "*"
 flask-mail = "*"
 flask-admin = "*"
 flask-security = "*"
+pytest = "*"
+pytest-helpers-namespace = "*"
 
 [dev-packages]
 pylint = "*"
