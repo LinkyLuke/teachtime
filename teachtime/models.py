@@ -53,7 +53,7 @@ class Event(db.Model):
 	title = db.Column(db.String(20), nullable=False)
 	start_time = db.Column(db.Time, nullable=False)
 	end_time = db.Column(db.Time, nullable=False)
-	description = db.Column(db.Text, nullable=False)
+	description = db.Column(db.Text, nullable=True)
 	timetable_id = db.Column(db.Integer, db.ForeignKey('timetable.id'), nullable=False)
 	
 	def __repr__(self):
